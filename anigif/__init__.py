@@ -1,0 +1,1 @@
+from .anigif import AnimatedGif
