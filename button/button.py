@@ -19,7 +19,7 @@ class Button:
 
         self.cap_text = self.but_font.render(self.but_caption, True, self.txt_col)
 
-    def render(self, screen):
+    def draw(self, screen):
         pygame.draw.rect(screen, self.but_col, self.but_rect)
 
         screen.blit(self.cap_text, [self.txt_x, self.txt_y]) #Displays the text in the centre of the button

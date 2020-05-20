@@ -21,6 +21,6 @@ class AnimatedGif:
 
     #Return frame of the GIF to be displayed at any given moment, based on ticks (i.e. time) and fps of the gif
     #The GIF loops indefinitely
-    def getCurFrame(self):
+    def draw(self, screen):
         self.frameCounter = int((pygame.time.get_ticks() - self.init_ticks) / self.time_dif) % self.noOfFrames
-        return self.frames[self.frameCounter]
+        screen.blit(self.frames[self.frameCounter], [self.x, self.y])

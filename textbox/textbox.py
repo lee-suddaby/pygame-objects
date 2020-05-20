@@ -174,17 +174,17 @@ class TextBox(object):
             self.blink = not self.blink
             self.blink_timer = pg.time.get_ticks()
 
-    def draw(self,surface):
+    def draw(self, screen):
         outline_color = self.active_color if self.active else self.outline_color
         outline = self.rect.inflate(self.outline_width*2,self.outline_width*2)
-        surface.fill(outline_color,outline)
-        surface.fill(self.color,self.rect)
+        screen.fill(outline_color,outline)
+        screen.fill(self.color,self.rect)
         if self.rendered:
-            surface.blit(self.rendered,self.render_rect,self.render_area)
+            screen.blit(self.rendered,self.render_rect,self.render_area)
         if self.blink and self.active:
             curse = self.render_area.copy()
             curse.topleft = self.render_rect.topleft
             if curse.left+self.blink_w > self.rect.width+self.rect.left-6:
-                surface.fill(self.font_color, (self.rect.width+self.rect.left-6, curse.y, 2, curse.h))
+                screen.fill(self.font_color, (self.rect.width+self.rect.left-6, curse.y, 2, curse.h))
             else:
-                surface.fill(self.font_color, (curse.left+self.blink_w+1, curse.y, 2, curse.h))
+                screen.fill(self.font_color, (curse.left+self.blink_w+1, curse.y, 2, curse.h))

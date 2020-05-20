@@ -27,4 +27,4 @@ class CheckBox:
             pygame.draw.line(self.render_rect, (0,0,0), [round(3*self.dim/8), round(19*self.dim/20)], [round(self.dim), 0], round(self.dim/10))
 
     def draw(self, screen):
-        screen.blit(self.render_rect, [self.x, self.y]) #100,200,40,40
+        screen.blit(self.render_rect, [self.x, self.y])

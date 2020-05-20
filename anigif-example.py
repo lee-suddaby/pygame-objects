@@ -26,8 +26,8 @@ while running:
             running = False
 
     screen.fill((0,0,0))
-    screen.blit(coin1.getCurFrame(), [coin1.x,coin1.y])
-    screen.blit(coin2.getCurFrame(), [coin2.x,coin2.y])
+    coin1.draw(screen)
+    coin2.draw(screen)
     screen.blit(font1, [25, 200])
     screen.blit(font2, [140, 200])
 

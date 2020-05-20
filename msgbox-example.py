@@ -29,7 +29,7 @@ while running:
     if msgBut.clicked():
         messageBox = MessageBox(screen, message, title)
 
-    msgBut.render(screen)
+    msgBut.draw(screen)
     if messageBox != None:
         messageBox.update()
         if messageBox.should_exit == False:
