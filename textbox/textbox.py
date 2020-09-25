@@ -25,6 +25,7 @@ class TextBox(object):
         self.back_timer = 0.0
         self.del_press = False
         self.del_timer = 0.0
+        self.visible = True
         self.process_kwargs(kwargs)
 
     def process_kwargs(self,kwargs):
@@ -49,6 +50,13 @@ class TextBox(object):
     def getContents(self):
         return "".join(self.buffer)
     
+    def show(self):
+        self.visible = False
+    
+    def hide(self):
+        self.visible = False
+        self.active = False
+
     def get_event(self,event):
         if event.type == pg.KEYDOWN and self.active:
             if event.key != pg.K_BACKSPACE:
@@ -100,7 +108,7 @@ class TextBox(object):
                         self.key_timer = pg.time.get_ticks()
                         self.key_cur = event.key
                         self.key_unicode = event.unicode
-        elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+        elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1 and self.visible:
             self.active = self.rect.collidepoint(event.pos)
 
     def execute(self):
@@ -174,17 +182,17 @@ class TextBox(object):
             self.blink = not self.blink
             self.blink_timer = pg.time.get_ticks()
 
-    def draw(self, screen):
+    def draw(self,surface):
         outline_color = self.active_color if self.active else self.outline_color
         outline = self.rect.inflate(self.outline_width*2,self.outline_width*2)
-        screen.fill(outline_color,outline)
-        screen.fill(self.color,self.rect)
+        surface.fill(outline_color,outline)
+        surface.fill(self.color,self.rect)
         if self.rendered:
-            screen.blit(self.rendered,self.render_rect,self.render_area)
+            surface.blit(self.rendered,self.render_rect,self.render_area)
         if self.blink and self.active:
             curse = self.render_area.copy()
             curse.topleft = self.render_rect.topleft
             if curse.left+self.blink_w > self.rect.width+self.rect.left-6:
-                screen.fill(self.font_color, (self.rect.width+self.rect.left-6, curse.y, 2, curse.h))
+                surface.fill(self.font_color, (self.rect.width+self.rect.left-6, curse.y, 2, curse.h))
             else:
-                screen.fill(self.font_color, (curse.left+self.blink_w+1, curse.y, 2, curse.h))
+                surface.fill(self.font_color, (curse.left+self.blink_w+1, curse.y, 2, curse.h))
